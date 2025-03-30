@@ -37,7 +37,7 @@ export function Dashboard() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <Layout className="h-8 w-8 text-blue-500" />
-              <span className="ml-2 text-xl font-semibold">Karello</span>
+              <span className="ml-2 text-xl font-semibold">Karello1</span>
             </div>
             <button
               onClick={logout}
