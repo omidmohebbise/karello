@@ -1,47 +1,34 @@
-name: Deploy to GitHub Pages
+name: Deploy Vite App to GitHub Pages
 
-# Run this workflow whenever you push to the `main` branch
 on:
   push:
     branches:
-      - main
-  # Allows manual workflow execution
-  workflow_dispatch:
+      - main  # Runs when changes are pushed to the main branch
 
-# Permissions required to deploy to GitHub Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
-  build-and-deploy:
-    # Use the latest Ubuntu environment
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository code
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Setup Node.js environment
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18 # Use Node.js 18.x (or your preferred version)
-          cache: 'npm'      # Enable caching for npm dependencies
+          node-version: 18
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      # Step 4: Build the project
-      - name: Build project
+      - name: Build Vite Project
         run: npm run build
 
-      # Step 5: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          path: dist # The output directory from Vite
+          branch: gh-pages  # Deploy to the gh-pages branch
+          folder: dist      # The output folder from Vite
